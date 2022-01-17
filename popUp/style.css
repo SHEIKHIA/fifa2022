@@ -1,0 +1,74 @@
+
+ul.a {
+  list-style-type: none;
+}
+
+li {
+  list-style:none;
+  float:left;
+  padding: 5px 10px;
+
+}
+
+*, *::before, *::after {
+  box-sizing: border-box
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.fifa {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-image: url("images/argentina.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.fifa::before,
+.fifa::after {
+  --scale: 0;
+  --arrow-size: 20px;
+  --tooltip-color: rgb(228, 179, 21);
+
+  position: absolute;
+  top: -.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+  transition: 150ms transform;
+  transform-origin: bottom center;
+}
+
+.fifa::before {
+  --translate-y: calc(-100% - var(--arrow-size));
+
+  content: attr(data-tooltip);
+  color: white;
+  padding: .5rem;
+  border-radius: .3rem;
+  text-align: center;
+  width: max-content;
+  max-width: 100%;
+  background: var(--tooltip-color);
+}
+
+.fifa:hover::before,
+.fifa:hover::after {
+  --scale: 1;
+}
+
+.fifa::after {
+  --translate-y: calc(-1 * var(--arrow-size));
+
+  content: '';
+  border: var(--arrow-size) solid transparent;
+  border-top-color: var(--tooltip-color);
+  transform-origin: top center;
+}
